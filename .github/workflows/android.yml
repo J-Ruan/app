@@ -5,30 +5,36 @@ on:
     tags: ['v*']
   pull_request:
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Optional existing version tag to publish'
+        required: false
+        default: ''
 permissions:
   contents: read
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '21'
-      - uses: android-actions/setup-android@v3
+      - name: Install pinned Android SDK packages
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
       - uses: gradle/actions/setup-gradle@v4
       - name: Compile, test and lint
         run: ./gradlew --no-daemon assembleDebug testDebugUnitTest lintDebug assembleDebugAndroidTest
       - name: Name APK and checksum
         shell: bash
         env:
-          VERSION: ${{ github.ref_name }}
+          VERSION: ${{ inputs.release_tag || github.ref_name }}
         run: |
           mkdir -p dist
-          if [[ "$GITHUB_REF" == refs/tags/* ]]; then NAME="WarmCycle-${VERSION}-debug.apk"; else NAME="WarmCycle-debug.apk"; fi
+          if [[ "$GITHUB_REF" == refs/tags/* || "$VERSION" == v* ]]; then NAME="WarmCycle-${VERSION}-debug.apk"; else NAME="WarmCycle-debug.apk"; fi
           cp app/build/outputs/apk/debug/app-debug.apk "dist/$NAME"
           (cd dist && sha256sum *.apk > SHA256SUMS.txt)
       - uses: actions/upload-artifact@v4
@@ -41,10 +47,10 @@ jobs:
           name: verification-reports
           path: app/build/reports/
       - name: Publish tag APK
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/') || inputs.release_tag != ''
         env:
           GH_TOKEN: ${{ github.token }}
-          VERSION: ${{ github.ref_name }}
+          VERSION: ${{ inputs.release_tag || github.ref_name }}
         run: |
           if gh release view "$VERSION" >/dev/null 2>&1; then
             for asset in dist/*; do
