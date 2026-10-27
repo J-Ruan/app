@@ -1,0 +1,58 @@
+name: Android build and APK
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Compile, test and lint
+        run: ./gradlew --no-daemon assembleDebug testDebugUnitTest lintDebug assembleDebugAndroidTest
+      - name: Name APK and checksum
+        shell: bash
+        env:
+          VERSION: ${{ github.ref_name }}
+        run: |
+          mkdir -p dist
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then NAME="WarmCycle-${VERSION}-debug.apk"; else NAME="WarmCycle-debug.apk"; fi
+          cp app/build/outputs/apk/debug/app-debug.apk "dist/$NAME"
+          (cd dist && sha256sum *.apk > SHA256SUMS.txt)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: WarmCycle-debug-apk
+          path: dist/
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verification-reports
+          path: app/build/reports/
+      - name: Publish tag APK
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ github.ref_name }}
+        run: |
+          if gh release view "$VERSION" >/dev/null 2>&1; then
+            for asset in dist/*; do
+              name="$(basename "$asset")"
+              if ! gh release view "$VERSION" --json assets --jq '.assets[].name' | grep -Fxq "$name"; then
+                gh release upload "$VERSION" "$asset"
+              fi
+            done
+          else
+            gh release create "$VERSION" dist/* --title "WarmCycle 暖期 $VERSION" --notes '可安装 Debug APK；离线存储，预测仅供参考。自动构建的调试签名不保证跨版本一致，升级前请导出备份。'
+          fi

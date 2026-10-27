@@ -1,0 +1,53 @@
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+com.warmcycle.ProcessPersistenceTest:
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=recordsAndSettingsSurviveProcessRestart
+INSTRUMENTATION_STATUS: class=com.warmcycle.ProcessPersistenceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=recordsAndSettingsSurviveProcessRestart
+INSTRUMENTATION_STATUS: class=com.warmcycle.ProcessPersistenceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+com.warmcycle.RepositoryTest:
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=persistsAcrossReopenAndBackupRestoresAtomically
+INSTRUMENTATION_STATUS: class=com.warmcycle.RepositoryTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=persistsAcrossReopenAndBackupRestoresAtomically
+INSTRUMENTATION_STATUS: class=com.warmcycle.RepositoryTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+com.warmcycle.UserJourneyTest:
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=onboardingRecordCalendarStatsSettingsAndDelete
+INSTRUMENTATION_STATUS: class=com.warmcycle.UserJourneyTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=onboardingRecordCalendarStatsSettingsAndDelete
+INSTRUMENTATION_STATUS: class=com.warmcycle.UserJourneyTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 66.458
+
+OK (3 tests)
+
+
+INSTRUMENTATION_CODE: -1

@@ -1,0 +1,1 @@
+<resources><style name="Theme.WarmCycle" parent="Theme.AppCompat.DayNight.NoActionBar"><item name="android:fontFamily">sans</item><item name="android:windowLightStatusBar">true</item><item name="android:colorAccent">#B7577B</item></style></resources>

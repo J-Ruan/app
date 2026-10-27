@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.warmcycle.CycleCalculatorTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-10-27T14:46:22" hostname="76b9d2a637b6" time="0.102">
+  <properties/>
+  <testcase name="rejectsReversedDates" classname="com.warmcycle.CycleCalculatorTest" time="0.064"/>
+  <testcase name="averagesActualStartIntervalsAndInclusiveDurations" classname="com.warmcycle.CycleCalculatorTest" time="0.031"/>
+  <testcase name="emptyHasNoPrediction" classname="com.warmcycle.CycleCalculatorTest" time="0.001"/>
+  <testcase name="activeIsOnlyAnActualRecord" classname="com.warmcycle.CycleCalculatorTest" time="0.001"/>
+  <testcase name="rejectsFuture" classname="com.warmcycle.CycleCalculatorTest" time="0.0"/>
+  <testcase name="irregularCyclesAreMarked" classname="com.warmcycle.CycleCalculatorTest" time="0.0"/>
+  <testcase name="rejectsOverlap" classname="com.warmcycle.CycleCalculatorTest" time="0.001"/>
+  <testcase name="rejectsOpenPeriodBeforeAnother" classname="com.warmcycle.CycleCalculatorTest" time="0.002"/>
+  <testcase name="overdueDoesNotSilentlyRollForward" classname="com.warmcycle.CycleCalculatorTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
