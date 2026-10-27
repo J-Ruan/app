@@ -15,7 +15,9 @@ targets = {"platforms;android-35": "platforms/android-35", "build-tools;35.0.0":
 if all((sdk / t / "source.properties").exists() for t in targets.values()):
     print("SDK prerequisites already installed")
     raise SystemExit(0)
-with tempfile.TemporaryDirectory(dir="/workspace/downloads") as work:
+downloads = Path(os.environ.get("WARM_CYCLE_DOWNLOADS", "/workspace/downloads"))
+downloads.mkdir(parents=True, exist_ok=True)
+with tempfile.TemporaryDirectory(dir=downloads) as work:
     work = Path(work)
     subprocess.run(["curl", "-fsSL", "https://dl.google.com/android/repository/repository2-1.xml", "-o", str(work / "repository.xml")], check=True)
     root = ET.parse(work / "repository.xml").getroot()
